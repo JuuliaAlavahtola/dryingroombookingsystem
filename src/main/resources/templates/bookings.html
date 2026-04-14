@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varaukset</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row" style="margin-top:20px">
+            <div class="col-md-4">
+                <h1>Varaukset</h1>
+            </div>
+
+            <div sec:authorize="isAuthenticated()">
+                <h3>Tervetuloa <span sec:authentication="name"></span></h3>
+            </div>
+
+            <div class="col-md-4" style="padding:20px 0">
+                <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                    <input type="submit" value="Kirjaudu ulos" class="btn btn-sm btn-danger">
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Päivämäärä</th>
+                <th>Alkaa</th>
+                <th>Päättyy</th>
+                <th>Huone</th>
+                <th>Osio</th>
+                <th>Varaaja</th>
+            </tr>
+
+            <tr th:each="b : ${bookings}">
+                <td th:text="${b.date}"></td>
+                <td th:text="${b.startTime}"></td>
+                <td th:text="${b.endTime}"></td>
+                <td th:text="${b.section.dryingRoom.building + b.section.dryingRoom.floor}"></td>
+                <td th:text="${b.section.number}"></td>
+                <td th:text="${b.resident != null ? b.resident.apartment.fullName : '—'}"></td>
+
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/edit/{id}(id=${b.id})}" class="btn btn-warning btn-sm">Muokkaa</a>
+                </td>
+
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/delete/{id}(id=${b.id})}" class="btn btn-danger btn-sm">Poista</a>
+                </td>
+            </tr>
+        </table>
+
+        <p><a th:href="@{/add}" class="btn btn-success">Lisää varaus</a></p>
+        <a th:href="@{/resident/list}">Tarkastele asukkaita</a>
+
+    </div>
+</body>
+
+</html>

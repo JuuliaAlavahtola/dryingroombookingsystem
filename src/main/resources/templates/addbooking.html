@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Uusi Varaus</title>
+</head>
+
+<body>
+
+    <h1>Lisää uusi varaus</h1>
+
+    <p th:if="${error}" th:text="${error}" style="color:red; font-weight:bold;"></p>
+
+    <form th:action="@{/save}" th:object="${booking}" method="post">
+
+        <p>
+            Päivämäärä:
+            <input type="date" th:field="*{date}" required>
+            <span th:errors="*{date}" style="color:red"></span>
+        </p>
+
+        <p>
+            Alkaa:
+            <input type="time" th:field="*{startTime}" required>
+            <span th:errors="*{startTime}" style="color:red"></span>
+        </p>
+
+        <p>
+            Päättyy:
+            <input type="time" th:field="*{endTime}" required>
+            <span th:errors="*{endTime}" style="color:red"></span>
+        </p>
+
+        <p>
+            Valitse huone ja osio:
+            <select th:field="*{section}">
+                <option th:each="s : ${sections}" th:value="${s.id}"
+                    th:text="${s.dryingRoom.building + s.dryingRoom.floor + ' – Osio ' + s.number}">
+                </option>
+            </select>
+            <span th:errors="*{section}" style="color:red"></span>
+        </p>
+
+        <p>
+            Valitse varaaja (asukas):
+            <select th:field="*{resident}">
+                <option th:each="r : ${residents}" th:value="${r.id}"
+                    th:text="${r.firstName + ' ' + r.lastName + ' (' + r.apartment.fullName + ')'}">
+                </option>
+            </select>
+            <span th:errors="*{resident}" style="color:red"></span>
+        </p>
+
+        <button type="submit">Tallenna varaus</button>
+        <p><a href="/bookings">Peruuta</a></p>
+
+    </form>
+
+</body>
+
+</html>

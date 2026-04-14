@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuivaushuoneet</title>
+</head>
+
+<body>
+
+    <h1>Kuivaushuoneet</h1>
+
+    <p><a href="/bookings">Takaisin varauksiin</a></p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Rappu</th>
+                <th>Kerros</th>
+                <th>Osioiden lkm</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="dr : ${rooms}">
+                <td th:text="${dr.id}"></td>
+                <td th:text="${dr.building}"></td>
+                <td th:text="${dr.floor}"></td>
+                <td>
+                    <span th:each="s : ${dr.sections}" th:text="${s.number}" style="margin-right: 8px;">
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

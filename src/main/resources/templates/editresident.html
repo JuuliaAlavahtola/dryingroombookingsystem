@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Muokkaa asukasta</title>
+</head>
+
+<body>
+
+    <h1>Muokkaa asukasta</h1>
+
+    <form th:action="@{/resident/save}" th:object="${resident}" method="post">
+
+        <input type="hidden" th:field="*{id}" />
+
+        <p>
+            Etunimi:
+            <input type="text" th:field="*{firstName}" required>
+            <span th:errors="*{firstName}" style="color:red"></span>
+        </p>
+
+        <p>
+            Sukunimi:
+            <input type="text" th:field="*{lastName}" required>
+            <span th:errors="*{lastName}" style="color:red"></span>
+        </p>
+
+        <p>
+            Huoneisto:
+            <select th:field="*{apartment}">
+                <option th:each="a : ${apartments}" th:value="${a.id}" th:text="${a.fullName}"></option>
+            </select>
+            <span th:errors="*{apartment}" style="color:red"></span>
+        </p>
+
+        <p>
+            Sähköposti:
+            <input type="email" th:field="*{email}" required>
+            <span th:errors="*{email}" style="color:red"></span>
+        </p>
+
+        <button type="submit">Tallenna</button>
+        <p><a href="/resident/list">Peruuta</a></p>
+
+    </form>
+
+</body>
+
+</html>

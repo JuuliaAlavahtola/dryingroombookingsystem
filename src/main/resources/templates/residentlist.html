@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Asukaslista</title>
+</head>
+
+<body>
+
+    <h1>Asukkaat</h1>
+
+    <p><a href="/bookings">Takaisin varauksiin</a></p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Huoneisto</th>
+                <th>Nimi</th>
+                <th>Sähköposti</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="r : ${residents}">
+                <td th:text="${r.id}"></td>
+                <td th:text="${r.apartment.fullName}"></td>
+                <td th:text="${r.firstName + ' ' + r.lastName}"></td>
+                <td th:text="${r.email}"></td>
+
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{'/resident/view/' + ${r.id}}">Näytä</a> |
+                </td>
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{'/resident/edit/' + ${r.id}}">Muokkaa</a> |
+                </td>
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/resident/delete/{id}(id=${r.id})}" class="btn btn-danger btn-sm">Poista</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p sec:authorize="hasAuthority('ADMIN')">
+        <a href="/resident/add">Lisää uusi asukas</a>
+    </p>
+
+</body>
+
+</html>
