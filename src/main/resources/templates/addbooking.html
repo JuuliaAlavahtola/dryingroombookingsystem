@@ -43,7 +43,7 @@
         </p>
 
         <p>
-            Valitse varaaja (asukas):
+            Valitse asukas:
             <select th:field="*{resident}">
                 <option th:each="r : ${residents}" th:value="${r.id}"
                     th:text="${r.firstName + ' ' + r.lastName + ' (' + r.apartment.fullName + ')'}">
