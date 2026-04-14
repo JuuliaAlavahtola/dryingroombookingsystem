@@ -6,12 +6,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 
 import hh.backend.dryingroombookingsystem.domain.Booking;
 import hh.backend.dryingroombookingsystem.domain.BookingRepository;
 import hh.backend.dryingroombookingsystem.domain.ResidentRepository;
 import hh.backend.dryingroombookingsystem.domain.SectionRepository;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,7 +57,7 @@ public class BookingController {
     }
 
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute Booking booking, BindingResult bindingResult, Model model) {
+    public String save(@Valid @ModelAttribute Booking booking, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("sections", sectionRepository.findAll());

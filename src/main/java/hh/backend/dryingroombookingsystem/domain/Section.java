@@ -2,6 +2,7 @@ package hh.backend.dryingroombookingsystem.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -22,11 +23,11 @@ public class Section {
     private int number;
 
     @ManyToOne
-    @JsonIgnoreProperties
+    @JsonIgnoreProperties({ "sections" })
     @JoinColumn(name = "drying_room_id")
     private DryingRoom dryingRoom;
 
-    @JsonIgnoreProperties
+    @JsonIgnore
     @OneToMany(mappedBy = "section")
     private List<Booking> bookings;
 

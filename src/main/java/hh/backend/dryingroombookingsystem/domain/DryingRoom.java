@@ -2,6 +2,7 @@ package hh.backend.dryingroombookingsystem.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -20,7 +21,7 @@ public class DryingRoom {
     private String building;
     private int floor;
 
-    @JsonIgnoreProperties
+    @JsonIgnoreProperties({ "dryingRoom" })
     @OneToMany(mappedBy = "dryingRoom")
     private List<Section> sections;
 

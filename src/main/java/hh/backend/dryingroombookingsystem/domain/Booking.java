@@ -39,7 +39,7 @@ public class Booking {
 
     @NotNull(message = "Valitse asukas")
     @ManyToOne
-    @JsonIgnoreProperties
+    @JsonIgnoreProperties({ "dryingRoom" })
     @JoinColumn(name = "resident_id")
     private Resident resident;
 
