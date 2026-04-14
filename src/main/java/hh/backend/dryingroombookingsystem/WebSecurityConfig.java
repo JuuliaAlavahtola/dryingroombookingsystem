@@ -25,7 +25,7 @@ public class WebSecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/bookings", "/resident/list", "/rooms", "/css/**", "/rest**")
+                        .requestMatchers("/", "/bookings", "/resident/list", "/rooms", "/css/**", "/api/booking/**")
                         .permitAll()
                         .requestMatchers("/add", "/save")
                         .hasAnyAuthority("USER", "ADMIN")
